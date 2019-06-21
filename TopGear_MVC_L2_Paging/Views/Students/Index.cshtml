@@ -1,0 +1,44 @@
+﻿@model PagedList.IPagedList<TopGear_MVC_L2_Paging.Models.Student>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Students";
+}
+
+<h2>Students</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Student Name
+        </th>
+        <th>
+            Standard
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Std)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Rollno }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Rollno }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Rollno })
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
